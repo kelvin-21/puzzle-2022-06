@@ -27,7 +27,7 @@ To give proper notation to the problem:
 Iterate through every different configuration of the cells to fill the grid, return True if all of the followings hold:
 <ol type="i">
   <li>Every region $R_i$ consists of unique values $1, 2, ...,|R_i|$ only.</li>
-  <li>For every cell whose value is $K$, the nearest $K$ is exactly $K$ units away.</li>
+  <li>For every cell, denote its value by $K$, the nearest $K$ is exactly $K$ units away.</li>
 </ol>
 
 ### Time complexity
@@ -49,7 +49,7 @@ Step (1) takes $O(R)$ to find the nearest $K$ and another $O(R)$ to check whethe
 For step (2), note that a boundary of a $K$-ball can only contain a limited number of $K$'s because they also have to be $K$ units away from each other (for exampe, the boundary of $1$-ball at any point can contain at most 4 $1$'s, for $2$-ball it is 8 $2$'s, for $3$-ball it is 4 $3$'s, for $4$-ball it is 8 $4$'s, etc). Thus in average there will be $O(R)$ cells we need to check and each check takes $O(R)$ time. Overall, step (2) takes $O(R^2)$ time.
 
 Combining the property of backtracking and time required for local and global neighbor checks gives
-$$T(X) = RT(X-1) + O(R^2)$$
+$$T(X) \leq RT(X-1) + O(R^2)$$
 
 ### Remarks
 1. Memorization helps optimize the performance. For this problem, it is found useful to store mappings like
