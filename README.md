@@ -1,5 +1,5 @@
 # Block Party 4
-The Jane Street puzzle for June 2022.
+The Jane Street puzzle for June 2022. Implemented the solution with backtracking.
 
 ## Problem Statement
 
@@ -40,4 +40,19 @@ For each cell $c$ in the grid, try each possible value $K$ for that region that 
 1. (**Local neighbor check**) Check that the nearest $K$ is at least $K$ units away. Raise failure if the boundary of $K$-ball (centered at $c$) has been filled but does not contain any $K$.
 2. (**Global neighbor check**) For each cell $s$ with value $S$ in the grid, if $s$ is exactly $S$ units away from the newly added cell $c$, then perform local neighbor check on $s$.
 
-## Solution 2 enhanced (with memorization)
+### Time complexity
+
+Denote $T(X)X$ as the time complexity for solving grid with $X$ cells yet to fill, and $R$ as the size of the largest region.
+
+Step (1) takes $O(R)$ to find the nearest $K$ and another $O(R)$ to check whether the boundary of $K$-ball has been filled, thus taking $O(R)$ overall.
+
+For step (2), note that a boundary of a $K$-ball can only contain a limited number of $K$'s because they also have to be $K$ units away from each other (for exampe, the boundary of $1$-ball at any point can contain at most 4 $1$'s, for $2$-ball it is 8 $2$'s, for $3$-ball it is 4 $3$'s, for $4$-ball it is 8 $4$'s, etc). Thus in average there will be $O(R)$ cells we need to check and each check takes $O(R)$ time. Overall, step (2) takes $O(R^2)$ time.
+
+Combining the property of backtracking and time required for local and global neighbor checks gives
+$$T(X) = RT(X-1) + O(R^2)$$
+
+### Remarks
+1. Memorization helps optimize the performance. For this problem, it is found useful to store mappings like
+    * cell position $\mapsto$ region
+    * cell position, value $K$ $\mapsto$ boundary of $K$-ball
+2. For this problem in particular, it is found faster to start backtracking with smaller regions.
