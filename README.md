@@ -36,7 +36,7 @@ Denote $R$ as the size of the largest region. Overall there will be $O(R^{M^2})$
 
 ## Solution 2 (backtracking)
 
-For each cell $c$ in the grid, try each possible value $K$ for that region that has not been used, and perform backtracking based. Continue if all of the followings hold, abandon otherwise.
+For each cell $c$ in the grid, try each possible value $K$ for that region that has not been used, and perform backtracking based on the truth values of the following checks. Continue if all of the followings hold, abandon otherwise.
 1. (**Local neighbor check**) Check that the nearest $K$ is at least $K$ units away. Raise failure if the boundary of $K$-ball (centered at $c$) has been filled but does not contain any $K$.
 2. (**Global neighbor check**) For each cell $s$ with value $S$ in the grid, if $s$ is exactly $S$ units away from the newly added cell $c$, then perform local neighbor check on $s$.
 
